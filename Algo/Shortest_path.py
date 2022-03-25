@@ -26,6 +26,25 @@ class Node:
         return array
 
 
+# Dijkstra's Algo  ------
+# 1. init all the dis to inf + pi to none.
+# 2. min heap for all the vertices
+# 3. till the queue is not empty - pop the min and update his adj distance...
 
-#
 
+def Dijkstra(graph, source):
+    for vertex in graph.vertices:
+        vertex.dist = float("inf")
+        vertex.pi = None
+
+    source.dist = 0
+    res = []
+    queue = [vertex for vertex in graph.vertices]
+    while len(queue):
+        u = queue.pop_min(0)
+        res.append(u)
+        for vertex in graph.adj(u):
+            if vertex.dist > u.dist + graph.w[u][vertex]:
+                vertex.dist = u.dist + graph.w[u][vertex]
+                vertex.pi = u
+    return res
